@@ -1,11 +1,24 @@
-# Verdreht
+# Verdreht – Twister-Drehscheibe und Ansager als Web-App
 
-Eine kleine, statische Web-App als deutscher Spielansager für das Partyspiel Twister. Kein Build,
+Eine kleine, statische Web-App, die beim Partyspiel Twister die Drehscheibe und den Spielleiter
+ersetzt. Sie sagt auf Deutsch an, welche Hand oder welcher Fuß auf welche Farbe kommt. Kein Build,
 kein Framework, kein Backend und kein Tracking.
 
 Live ausprobieren: [mizine.de/verdreht](https://mizine.de/verdreht/)
 
 > Unabhängiges Fanprojekt. Nicht verbunden mit Hasbro; „Twister“ ist eine Marke von Hasbro.
+
+## Warum?
+
+Bei Twister braucht es eigentlich eine dritte Person, die an der Drehscheibe dreht und ansagt.
+Wollt Ihr zu zweit spielen, will niemand zuschauen, oder ist die Drehscheibe verloren gegangen,
+fehlt genau diese Person. Verdreht übernimmt das: Handy oder Tablet neben die Matte legen,
+„Spiel starten“ tippen, und alle können mitspielen. Die App lost im eingestellten Takt den nächsten Zug aus und sagt ihn
+automatisch an, Ihr müsst also nichts mehr anfassen.
+
+| Start | Im Spiel |
+| --- | --- |
+| ![Verdreht: Startbildschirm der Twister-Drehscheibe-App](docs/screenshot-start.jpg) | ![Verdreht im Spiel: Ansage „Rechter Fuß auf Grün“](docs/screenshot-spiel.jpg) |
 
 ## Spielablauf
 
