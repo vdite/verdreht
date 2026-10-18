@@ -28,6 +28,7 @@ starten“ tippen, und ab dann kommt alle paar Sekunden automatisch die nächste
 - Eine Kombination wiederholt sich erst, wenn der Stapel leer ist.
 - Das Intervall ist zwischen 5 und 60 Sekunden einstellbar.
 - Fünf Sekunden vor dem nächsten Zug kann eine Erinnerung angesagt werden.
+- Während des Spiels bleibt das Display an, damit das Handy neben der Matte nicht in den Ruhezustand geht (Screen Wake Lock API, sofern der Browser sie unterstützt).
 - Die Ansagen kommen aus mitgelieferten Sprachaufnahmen oder aus der deutschen Browser-Stimme.
 - Nach dem ersten Laden funktioniert die App dank Service Worker auch offline und lässt sich als App installieren.
 

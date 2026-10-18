@@ -1,9 +1,9 @@
-const CACHE_NAME = "verdreht-v6-cache2";
+const CACHE_NAME = "verdreht-v7";
 const APP_FILES = [
-  "./?_verdreht=6",
-  "./index.html?_verdreht=6",
-  "./styles.css?v=6",
-  "./app.js?v=6",
+  "./?_verdreht=7",
+  "./index.html?_verdreht=7",
+  "./styles.css?v=7",
+  "./app.js?v=7",
   "./manifest.webmanifest",
   "./fonts/pt-sans-regular.ttf",
   "./fonts/pt-sans-bold.ttf",
@@ -34,7 +34,7 @@ self.addEventListener("fetch", (event) => {
       .catch(async () => {
         const cachedResponse = await caches.match(event.request);
         if (cachedResponse) return cachedResponse;
-        if (event.request.mode === "navigate") return caches.match("./?_verdreht=6");
+        if (event.request.mode === "navigate") return caches.match("./?_verdreht=7");
         return Response.error();
       }),
   );

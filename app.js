@@ -1,4 +1,4 @@
-const APP_VERSION = "6";
+const APP_VERSION = "7";
 
 const MOVES = [
   { side: "Linke", limb: "Hand", fileSide: "linke", fileLimb: "hand" },
@@ -36,6 +36,7 @@ const state = {
   audioBuffers: new Map(),
   activeSources: [],
   audioSequence: 0,
+  wakeLock: null,
 };
 
 const ui = {
@@ -106,12 +107,44 @@ function renderMove() {
   updateTimerText();
 }
 
+// Hält das Display während des Spiels an: Das Handy liegt neben der Matte, niemand fasst es an.
+// Nicht jeder Browser unterstützt das (z. B. ältere iOS-Versionen), daher nur eine Warnung.
+let wakeLockPending = false;
+
+async function requestWakeLock() {
+  if (!("wakeLock" in navigator) || state.wakeLock || wakeLockPending || document.hidden) return;
+  wakeLockPending = true;
+  try {
+    const lock = await navigator.wakeLock.request("screen");
+    if (!state.running) {
+      lock.release().catch(() => {});
+      return;
+    }
+    state.wakeLock = lock;
+    // Der Browser gibt die Sperre selbst frei, sobald der Tab in den Hintergrund geht.
+    lock.addEventListener("release", () => {
+      if (state.wakeLock === lock) state.wakeLock = null;
+    });
+  } catch (error) {
+    console.warn("Bildschirm kann nicht wach gehalten werden.", error);
+  } finally {
+    wakeLockPending = false;
+  }
+}
+
+function releaseWakeLock() {
+  const lock = state.wakeLock;
+  state.wakeLock = null;
+  lock?.release().catch(() => {});
+}
+
 async function startGame() {
   ui.mainButton.disabled = true;
   if (state.voiceMode !== "speech" && state.audioBuffers.size > 0) {
     await unlockAudio();
   }
   state.running = true;
+  requestWakeLock();
   state.round = 0;
   state.deck = [];
   ui.mainButtonLabel.textContent = "Spiel beenden";
@@ -126,6 +159,7 @@ async function startGame() {
 
 function stopGame() {
   state.running = false;
+  releaseWakeLock();
   clearInterval(state.timer);
   window.speechSynthesis?.cancel();
   stopActiveAudio();
@@ -380,7 +414,9 @@ function resumeAudioAfterInterruption() {
 
 document.addEventListener("pointerdown", resumeAudioAfterInterruption, { passive: true });
 document.addEventListener("visibilitychange", () => {
-  if (!document.hidden) resumeAudioAfterInterruption();
+  if (document.hidden) return;
+  resumeAudioAfterInterruption();
+  if (state.running) requestWakeLock();
 });
 window.addEventListener("pageshow", resumeAudioAfterInterruption);
 
