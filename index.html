@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f7f3eb" />
+    <meta
+      name="description"
+      content="Ein einfacher deutscher Ansager für eine Partie Twister."
+    />
+    <title>Verdreht – Spielansager</title>
+    <script>
+      (() => {
+        const url = new URL(window.location.href);
+        const cacheBypass = "_verdreht";
+
+        if (!url.searchParams.has(cacheBypass)) {
+          url.searchParams.set(cacheBypass, "6");
+          window.location.replace(url.href);
+          return;
+        }
+
+        url.searchParams.delete(cacheBypass);
+        window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
+      })();
+    </script>
+    <link rel="stylesheet" href="styles.css?v=6" />
+    <link rel="manifest" href="manifest.webmanifest" />
+  </head>
+  <body>
+    <!--
+      🛰️ Hallo, neugieriger Mensch.
+
+      Diese kleine Ecke des Internets wurde von einem Menschen und einer Maschine
+      gemeinsam zusammengebaut. Keine Panik: Kenne deinen nächsten Zug, verliere
+      nicht das Gleichgewicht – und hab sicherheitshalber immer ein Handtuch dabei.
+    -->
+    <main class="app-shell">
+      <header class="topbar">
+        <div class="brand-lockup">
+          <a class="brand" href="#" aria-label="Verdreht Startseite">
+            <span class="brand-mark" aria-hidden="true">
+              <i></i><i></i><i></i><i></i>
+            </span>
+            <span>Verdreht</span>
+          </a>
+        </div>
+        <button class="icon-button" id="settingsButton" type="button" aria-label="Einstellungen öffnen">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Z" />
+            <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.56V21h-4v-.08A1.7 1.7 0 0 0 8.94 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.57 15 1.7 1.7 0 0 0 3 14H3v-4h.08A1.7 1.7 0 0 0 4.6 8.94a1.7 1.7 0 0 0-.34-1.88L4.2 7l2.83-2.83.06.06a1.7 1.7 0 0 0 1.88.34A1.7 1.7 0 0 0 10 3.08V3h4v.08a1.7 1.7 0 0 0 1.03 1.49 1.7 1.7 0 0 0 1.88-.34l.06-.06L19.8 7l-.06.06a1.7 1.7 0 0 0-.34 1.88A1.7 1.7 0 0 0 20.92 10H21v4h-.08A1.7 1.7 0 0 0 19.4 15Z" />
+          </svg>
+        </button>
+      </header>
+
+      <section class="game" aria-labelledby="instruction">
+        <p class="eyebrow" id="roundLabel">Bereit für die erste Runde?</p>
+
+        <div class="move-card" id="moveCard">
+          <div class="limb-visual" id="limbVisual" aria-hidden="true">
+            <svg class="hand-icon" id="handIcon" viewBox="0 0 120 120">
+              <path d="M33 54V30c0-5 3-8 7-8s7 3 7 8v18-27c0-5 3-8 7-8s7 3 7 8v27-23c0-5 3-8 7-8s7 3 7 8v26-17c0-5 3-8 7-8s7 3 7 8v34c0 25-13 38-35 38-14 0-24-6-31-17L15 72c-3-5-2-10 2-13s9-2 12 2l9 12" />
+            </svg>
+            <svg class="foot-icon" id="footIcon" viewBox="0 0 120 120" hidden>
+              <path d="M58 11c14 0 22 13 22 30 0 13-4 23-4 33 0 11 13 12 13 24 0 9-10 14-25 14-21 0-34-11-34-27 0-11 8-20 10-30 2-11-2-20 0-29 2-9 8-15 18-15Z" />
+              <circle cx="91" cy="30" r="8" /><circle cx="89" cy="12" r="7" />
+              <circle cx="74" cy="6" r="6" /><circle cx="58" cy="5" r="5" />
+            </svg>
+          </div>
+
+          <div class="instruction-wrap">
+            <h1 id="instruction">Tippe auf<br />„Spiel starten“</h1>
+            <div class="color-answer" id="colorAnswer" hidden>
+              <span class="color-dot" id="colorDot"></span>
+              <span id="colorName"></span>
+            </div>
+          </div>
+
+          <div class="mini-board" aria-hidden="true">
+            <span class="dot red"></span><span class="dot blue"></span>
+            <span class="dot yellow"></span><span class="dot green"></span>
+            <span class="dot blue"></span><span class="dot red"></span>
+            <span class="dot green"></span><span class="dot yellow"></span>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button class="primary-button" id="mainButton" type="button">
+            <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7V5Z" /></svg>
+            <span>Spiel starten</span>
+          </button>
+          <button class="secondary-button" id="repeatButton" type="button" disabled>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 9M20 4v5h-5M20 12a8 8 0 0 1-13.7 5.6L4 15m0 5v-5h5" /></svg>
+            Wiederholen
+          </button>
+        </div>
+
+        <button class="audio-unlock" id="audioUnlockButton" type="button" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M11 5 6.5 9H3v6h3.5l4.5 4V5Z" />
+            <path d="M15 9.5a4 4 0 0 1 0 5M17.5 7a7.5 7.5 0 0 1 0 10" />
+          </svg>
+          Ton aktivieren
+        </button>
+
+        <div class="status-row" aria-live="polite">
+          <span><i class="status-light" id="statusLight"></i><span id="statusText">Bereit</span></span>
+          <span id="timerText">Alle 10 Sekunden</span>
+        </div>
+      </section>
+    </main>
+
+    <dialog class="settings-dialog" id="settingsDialog">
+      <form method="dialog" class="settings-card">
+        <div class="dialog-heading">
+          <div>
+            <p class="eyebrow">Spiel anpassen</p>
+            <h2>Einstellungen</h2>
+          </div>
+          <button class="icon-button close-button" value="cancel" aria-label="Einstellungen schließen" type="submit">×</button>
+        </div>
+
+        <label class="setting-field" for="intervalInput">
+          <span><strong>Zeit pro Zug</strong><small>Wie oft wird neu angesagt?</small></span>
+          <span class="range-value"><output id="intervalOutput">10</output> Sek.</span>
+        </label>
+        <input id="intervalInput" type="range" min="5" max="60" step="5" value="10" />
+
+        <div class="setting-field audio-setting">
+          <span><strong>Stimme</strong><small>Lokale Aufnahmen werden automatisch erkannt.</small></span>
+          <select id="voiceMode" aria-label="Stimmenmodus">
+            <option value="auto">Automatisch</option>
+            <option value="speech">Browser-Stimme</option>
+            <option value="audio">WAV-Dateien</option>
+          </select>
+        </div>
+
+        <label class="toggle-row">
+          <span><strong>Countdown ansagen</strong><small>Hinweis fünf Sekunden vor dem nächsten Zug</small></span>
+          <input id="countdownToggle" type="checkbox" checked />
+          <i aria-hidden="true"></i>
+        </label>
+
+        <button class="primary-button save-button" value="default" type="submit">Fertig</button>
+      </form>
+    </dialog>
+
+    <script src="app.js?v=6" defer></script>
+  </body>
+</html>

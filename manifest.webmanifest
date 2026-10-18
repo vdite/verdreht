@@ -1,0 +1,10 @@
+{
+  "name": "Verdreht – Spielansager",
+  "short_name": "Verdreht",
+  "description": "Ein deutscher Ansager für eine Partie Twister.",
+  "lang": "de",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f7f3eb",
+  "theme_color": "#f7f3eb"
+}
