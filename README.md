@@ -1,8 +1,8 @@
-# Verdreht – Twister-Drehscheibe und Ansager als Web-App
+# Verdreht – Twister-Drehscheibe online mit automatischer Ansage
 
-Eine kleine, statische Web-App, die beim Partyspiel Twister die Drehscheibe und den Spielleiter
-ersetzt. Sie sagt auf Deutsch an, welche Hand oder welcher Fuß auf welche Farbe kommt. Kein Build,
-kein Framework, kein Backend und kein Tracking.
+Eine Twister-Drehscheibe als Web-App, die **von allein läuft**: Sie lost im eingestellten Takt den
+nächsten Zug aus und sagt ihn auf Deutsch an, zum Beispiel „Linke Hand auf Rot“. Niemand muss
+zwischendurch einen Button drücken. Kein Build, kein Framework, kein Backend und kein Tracking.
 
 Live ausprobieren: [mizine.de/verdreht](https://mizine.de/verdreht/)
 
@@ -11,10 +11,12 @@ Live ausprobieren: [mizine.de/verdreht](https://mizine.de/verdreht/)
 ## Warum?
 
 Bei Twister braucht es eigentlich eine dritte Person, die an der Drehscheibe dreht und ansagt.
-Wollt Ihr zu zweit spielen, will niemand zuschauen, oder ist die Drehscheibe verloren gegangen,
-fehlt genau diese Person. Verdreht übernimmt das: Handy oder Tablet neben die Matte legen,
-„Spiel starten“ tippen, und alle können mitspielen. Die App lost im eingestellten Takt den nächsten Zug aus und sagt ihn
-automatisch an, Ihr müsst also nichts mehr anfassen.
+Viele Online-Drehscheiben lösen das nicht: Dort muss bei jedem Zug jemand auf „Drehen“
+tippen, und wer mit Händen und Füßen auf der Matte steht, kommt nicht ans Handy.
+
+Verdreht läuft deshalb ohne Bedienung: Handy oder Tablet neben die Matte legen, einmal „Spiel
+starten“ tippen, und ab dann kommt alle paar Sekunden automatisch die nächste Ansage. So könnt Ihr
+**zu zweit spielen, ohne Spielleiter**, und alle Anwesenden sind auf der Matte statt daneben.
 
 | Start | Im Spiel |
 | --- | --- |
